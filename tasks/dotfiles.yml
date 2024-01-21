@@ -1,0 +1,36 @@
+- name: Install Chezmoi
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Include SSH Key from Vault
+      include_vars:
+        file: ssh_key.vault
+      vars_prompt:
+        - name: vault_password
+          prompt: "Enter the Ansible Vault Password"
+          private: yes
+
+    - name: Run SSH Agent
+      ansible.builtin.command: |
+        eval $(ssh-agent -s)
+      when: vault_password is defined
+
+    - name: Add SSH Key to Agent
+      ansible.builtin.command: |
+        ssh-add - <<< "{{ private_ssh_key }}"
+      when: vault_password is defined
+
+    - name: Check if Chezmoi is installed
+      command: chezmoi --version
+      register: chezmoi_version
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Install Chezmoi
+      script: 
+        cmd: |
+          if [ ! -x "$HOME/.local/bin/chezmoi" ]; then
+            sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
+          fi
+      when: chezmoi_version != ""
