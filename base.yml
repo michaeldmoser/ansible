@@ -8,28 +8,9 @@
     - base
     - name: 1password
       tags: ["1password"]
-    # - git
-    - tmux
+    # - tmux
 
   tasks:
-    - name: Create .local/bin directory
-      file:
-        path: ~/.local/bin
-        state: directory    
-
-    - name: Install Git on macOS
-      homebrew:
-        name: git
-        state: latest
-      when: ansible_os_family == "Darwin"
-
-    - name: Install Git on Ubuntu
-      apt:
-        name: git
-        state: latest
-        update_cache: yes
-      when: ansible_os_family == "Debian"
-
-    - import_tasks: ./tasks/cheater-cheater.yml
-    - import_tasks: ./tasks/dotfiles.yml
+    # - import_tasks: ./tasks/cheater-cheater.yml
+    # - import_tasks: ./tasks/dotfiles.yml
 

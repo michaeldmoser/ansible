@@ -1,42 +1,37 @@
-- name: Update apt
-  apt:
-    update_cache: yes
-  become: true
-
 - name: Install rlwrap
   apt:
     name: rlwrap
     state: present
   when: ansible_distribution == 'Ubuntu'
-  become: true
+  become: yes
 
 - name: Install rlwrap
   homebrew:
     name: rlwrap
     state: present
   when: ansible_distribution == 'MacOSX'
-  become: true
+  become: yes
 
 - name: Install xclip
   apt:
     name: xclip
     state: present 
   when: ansible_distribution == 'Ubuntu'
-  become: true
+  become: yes
     
 - name: Install xclip
   homebrew:
     name: xclip
     state: present
   when: ansible_distribution == 'MacOSX'
-  become: true
+  become: yes
 
 - name: Install ripgrep
   apt:
     name: ripgrep
     state: present
   when: ansible_distribution == 'Ubuntu'
-  become: true
+  become: yes
 
 - name: Install ripgrep
   homebrew:
@@ -50,16 +45,11 @@
     name: fzf
     state: present
   when: ansible_distribution == 'Ubuntu'
-  become: true
+  become: yes
 
 - name: Install fzf
   homebrew:
     name: fzf
     state: present
   when: ansible_distribution == 'MacOSX'
-
-
-
-- import_tasks: install_asdf.yml 
-  tags: [ "asdf" ]
 

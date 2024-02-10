@@ -1,3 +1,8 @@
+- name: Create .local/bin directory
+  file:
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory    
+
 - import_tasks: ./macosx.yml
   when: ansible_os_family == "Darwin"
 

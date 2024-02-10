@@ -1,0 +1,12 @@
+- name: Install Git on macOS
+  homebrew:
+    name: git
+    state: latest
+  when: ansible_os_family == "Darwin"
+
+- name: Install Git on Ubuntu
+  apt:
+    name: git
+    state: latest
+  when: ansible_os_family == "Debian"
+

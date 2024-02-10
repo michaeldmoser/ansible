@@ -1,0 +1,22 @@
+- name: Download asdf
+  ansible.builtin.git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: "{{ ansible_env.HOME }}/.asdf"
+    version: v0.14.0
+  tags: ["asdf"]
+    
+- name: Source asdf in zsh
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    create: True
+    block: |
+      source $HOME/.asdf/asdf.sh
+  tags: ["asdf"]
+
+- name: Source asdf in bashrc
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    create: True
+    block: |
+      source $HOME/.asdf/asdf.sh
+
