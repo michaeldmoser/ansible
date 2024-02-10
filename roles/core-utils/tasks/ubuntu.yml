@@ -1,0 +1,17 @@
+- name: Update apt
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Make sure gpg is installed
+  apt:
+    name: gpg
+    state: present
+  become: yes
+
+- name: Make sure we have curl installed
+  apt:
+    name: curl
+    state: present
+  become: yes
+

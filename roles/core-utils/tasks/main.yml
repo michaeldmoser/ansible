@@ -1,0 +1,5 @@
+- import_tasks: ./macosx.yml
+  when: ansible_os_family == "Darwin"
+
+- import_tasks: ./ubuntu.yml
+  when: ansible_os_family == "Debian" 

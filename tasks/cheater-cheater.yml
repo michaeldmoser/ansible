@@ -1,0 +1,12 @@
+- name: Get cht.sh stats
+  stat: 
+    path: ~/.local/bin/cht.sh
+  register: chtsh
+
+- name: Install cht.sh
+  get_url: 
+    url: https://cht.sh/:cht.sh
+    dest: ~/.local/bin/cht.sh
+    mode: '0755'
+  when: chtsh.stat.executable is not defined or chtsh.stat.executable == False
+

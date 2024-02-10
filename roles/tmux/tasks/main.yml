@@ -1,0 +1,15 @@
+- name: Install tmux on Ubuntu Linux
+  apt:
+    name: tmux
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+  become: true
+
+- name: Install tmux on MacOSX
+  homebrew:
+    name: tmux
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+
+

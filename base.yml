@@ -1,12 +1,22 @@
 - name: Setup Environment
   hosts: localhost
   gather_facts: yes
-  vars_prompt:
-    - name: dotfiles_repo_url
-      prompt: "Enter your dotfiles repository URL"
-      private: no
+  vars:
+    dotfiles_repo_url:  git@github.com:michaeldmoser/dotfiles.git
+
+  roles:
+    - base
+    - name: 1password
+      tags: ["1password"]
+    # - git
+    - tmux
 
   tasks:
+    - name: Create .local/bin directory
+      file:
+        path: ~/.local/bin
+        state: directory    
+
     - name: Install Git on macOS
       homebrew:
         name: git
@@ -20,29 +30,6 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    - name: Install Chezmoi
-      hosts: localhost
-      gather_facts: no
+    - import_tasks: ./tasks/cheater-cheater.yml
+    - import_tasks: ./tasks/dotfiles.yml
 
-      tasks:
-        - name: Check if Chezmoi is installed
-          command: chezmoi version
-          register: chezmoi_version
-          ignore_errors: yes
-          changed_when: false
-
-        - name: Install Chezmoi
-          script: 
-            cmd: |
-              if [ ! -x "$HOME/.local/bin/chezmoi" ]; then
-                sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
-              fi
-          when: chezmoi_version.rc != 0
-    - include: ./tasks/asdf.yml
-
-    - name: Clone and apply dotfiles using Chezmoi
-      shell: |
-        chezmoi init "{{ dotfiles_repo_url }}"
-        chezmoi apply
-      args:
-        executable: /bin/zsh
