@@ -1,0 +1,33 @@
+- name: Remove any previous 1password downloads
+  file:
+    path: "/tmp/1Password.zip"
+    state: absent
+
+- name: Remove any prevous 1password installer files
+  file:
+    path: "/tmp/1Password Installer.zip"
+    state: absent
+
+- name: Download 1password
+  get_url:
+    url: https://downloads.1password.com/mac/1Password.zip 
+    dest: /tmp/1Password.zip
+
+- name: Unzip 1password file
+  unarchive:
+    src: /tmp/1Password.zip
+    dest: /tmp/
+
+- name: Start 1password installer
+  shell: |
+    open "/tmp/1Password Installer.app"
+
+- name: Wait for install to finish
+  pause:
+    prompt: "Make sure 1password is fully installed before continuing on"
+
+- name: Install 1password CLI tools
+  homebrew: 
+    name: 1password-cli
+    state: present
+
