@@ -1,0 +1,6 @@
+- name: Install GPG and curl
+  homebrew:
+    name: 
+      - gpg
+      - curl
+    state: present
