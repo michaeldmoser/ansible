@@ -1,8 +1,6 @@
-argument_specs:
-  main:
-    short_description: Install and setup asdf
-    author:
-      - Michael Moser <michaeldmoser@gmail.com> (https://michaelmoser.dev)
+galaxy_info:
+  author: Michael Moser <michaeldmoser@gmail.com> (https://michaelmoser.dev)
+  escription: Install and setup asdf
 
 dependencies:
   - role: git 

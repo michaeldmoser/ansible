@@ -1,5 +1,5 @@
 - name: Install some basic utilities required by multiple tools
-  homebrew:
+  apt:
     name: 
       - gpg
       - curl
@@ -9,3 +9,4 @@
       - fzf
     state: present
   become: yes
+

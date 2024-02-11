@@ -1,3 +1,0 @@
-dependencies:
-  - role: apt-update-cache
-  - role: core-dependencies

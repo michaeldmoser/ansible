@@ -6,5 +6,11 @@
 - import_tasks: ./macosx.yml
   when: ansible_os_family == "Darwin"
 
-- import_tasks: ./ubuntu.yml
+- import_tasks: ./debian.yml
   when: ansible_os_family == "Debian" 
+
+- name: Install asdf 
+  import_role:
+    name: asdf
+  tags:
+    - "asdf"
