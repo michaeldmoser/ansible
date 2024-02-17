@@ -1,4 +1,5 @@
-- name: Get cht.sh stats
+---
+- name: Is cht.sh already installed?
   stat: 
     path: ~/.local/bin/cht.sh
   register: chtsh
@@ -10,3 +11,4 @@
     mode: '0755'
   when: chtsh.stat.executable is not defined or chtsh.stat.executable == False
 
+  

@@ -7,9 +7,10 @@
   roles:
     - name: 1password
       tags: ["1password"]
+    - name: cheater-cheater
+      tags: ["cheater-cheater", "cht.sh"]
     # - tmux
 
   tasks:
-    # - import_tasks: ./tasks/cheater-cheater.yml
     # - import_tasks: ./tasks/dotfiles.yml
 
