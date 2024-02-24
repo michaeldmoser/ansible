@@ -1,0 +1,64 @@
+---
+# tasks file for hammerspoon
+#
+- when: ansible_os_family == 'Darwin' 
+  block:
+  - name: Is hammerspoon already installed?
+    stat: 
+      path: /Applications/Hammerspoon.app
+    register: hammerspoon
+
+  - when: hammerspoon.stat.isdir is not defined
+    block:
+      - name: Download Hammerspoon
+        get_url:
+          url: https://github.com/Hammerspoon/hammerspoon/releases/download/0.9.100/Hammerspoon-0.9.100.zip 
+          dest: /tmp/hammerspoon.zip
+
+      - name: Unzip hammerspoon archive
+        unarchive:
+          src: /tmp/hammerspoon.zip
+          dest: /Applications/Hammerspoon.app
+
+      - name: Remove tmp hammerspoon files
+        file:
+          path: /tmp/hammerspoon.zip
+          state: absent
+
+      - name: Set automatic checks 
+        osx_defaults:
+          domain: org.hammerspoon.Hammerspoon
+          key: SUEnableAutomaticChecks
+          type: bool
+          value: true
+          state: present
+
+      - name: Set show dock icon
+        osx_defaults:
+          domain: org.hammerspoon.Hammerspoon
+          key: MJShowDockIconKey
+          type: bool
+          value: true
+          state: present
+
+      - name: Set config location
+        osx_defaults:
+          domain: org.hammerspoon.Hammerspoon
+          key: MJShowDockIconKey
+          type: string
+          value: "~/.config/hammerspoon/init.lua"
+          state: present
+
+      - name: Create hammerspoon config directory
+        file:
+          state: directory
+          path: "{{ ansible_env.HOME }}/.config/hammerspoon"
+
+      - name: Start hammerspoon
+        shell: |
+          open "/Applications/Hammerspoon.app"
+
+
+
+
+

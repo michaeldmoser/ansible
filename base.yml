@@ -9,6 +9,8 @@
       tags: ["1password"]
     - name: cheater-cheater
       tags: ["cheater-cheater", "cht.sh"]
+    - name: hammerspoon
+      tags: ["hammerspoon"]
     # - tmux
 
   tasks:
