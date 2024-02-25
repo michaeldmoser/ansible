@@ -6,17 +6,19 @@
 
   vars_prompt:
     - name: computer_name
-      prompt: What would you like to name this computer?
+      prompt: "What would you like to name this computer?"
+      private: false
 
     - name: computer_use_type
       prompt: "Is this a 'work' or 'personal' computer?"
+      private: false
 
 
   tasks:
     - name: Set the computer name and metadata
       import_role:
-        name: computer-name
-      tags: ['computer-name']
+        name: name-computer
+      tags: ['name-computer']
 
     - name: 1password
       import_role:

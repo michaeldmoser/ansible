@@ -17,6 +17,7 @@
   blockinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     create: True
+    marker: "# {mark} asdf ANSIBLE MANAGED BLOCK"
     block: |
       source $HOME/.asdf/asdf.sh
 

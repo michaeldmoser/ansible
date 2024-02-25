@@ -1,0 +1,46 @@
+---
+# tasks file for name-computer
+
+- name: Make sure .config/ exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config"
+    state: directory
+
+- name: Create an env file
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.config/computer_meta.env"
+    create: yes
+    block: |
+      export COMPUTER_NAME="{{ computer_name }}"
+      export COMPUTER_USE_TYPE="{{ computer_use_type }}"
+
+- name: Has zshrc
+  stat: 
+    path: "{{ ansible_env.HOME }}/.zshrc"
+  register: zshrc
+
+# We'll put this in zshenv so that it is always loaded whether it's an interactive session or not.
+- name: Source in ZSH 
+  when: zshrc.stat.isreg is defined and zshrc.stat.isreg
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    create: yes
+    block: |
+      source ~/.config/computer_meta.env
+
+- name: Has bashrc
+  stat: 
+    path: "{{ ansible_env.HOME }}/.bashrc"
+  register: bashrc
+
+- name: Source in Bash
+  when: bashrc.stat.isreg is defined and bashrc.stat.isreg
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    create: True
+    marker: "# {mark} name-computer ANSIBLE MANAGED BLOCK"
+    block: |
+      source ~/.config/computer_meta.env
+
+
+# TODO: Eventually it would be good to have is set the hostname and for OSX the ComputerName too.
