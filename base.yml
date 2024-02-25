@@ -4,15 +4,32 @@
   vars:
     dotfiles_repo_url:  git@github.com:michaeldmoser/dotfiles.git
 
-  roles:
-    - name: 1password
-      tags: ["1password"]
-    - name: cheater-cheater
-      tags: ["cheater-cheater", "cht.sh"]
-    - name: hammerspoon
-      tags: ["hammerspoon"]
-    # - tmux
+  vars_prompt:
+    - name: computer_name
+      prompt: What would you like to name this computer?
+
+    - name: computer_use_type
+      prompt: "Is this a 'work' or 'personal' computer?"
+
 
   tasks:
-    # - import_tasks: ./tasks/dotfiles.yml
+    - name: Set the computer name and metadata
+      import_role:
+        name: computer-name
+      tags: ['computer-name']
+
+    - name: 1password
+      import_role:
+        name: 1password
+      tags: ["1password"]
+        
+    - name: cheater-cheater
+      import_role:
+        name: cheater-cheater
+      tags: ["cheater-cheater", "cht.sh"]
+
+    - name: hammerspoon
+      import_role:
+        name: hammerspoon
+      tags: ["hammerspoon"]
 
