@@ -44,7 +44,7 @@
       - name: Set config location
         osx_defaults:
           domain: org.hammerspoon.Hammerspoon
-          key: MJShowDockIconKey
+          key: MJConfigFile
           type: string
           value: "~/.config/hammerspoon/init.lua"
           state: present
@@ -52,7 +52,7 @@
       - name: Create hammerspoon config directory
         file:
           state: directory
-          path: "{{ ansible_env.HOME }}/.config/hammerspoon"
+          path: ""{{ ansible_env.HOME }}/.config/hammerspoon
 
       - name: Start hammerspoon
         shell: |
