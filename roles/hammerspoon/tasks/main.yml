@@ -52,7 +52,7 @@
       - name: Create hammerspoon config directory
         file:
           state: directory
-          path: ""{{ ansible_env.HOME }}/.config/hammerspoon
+          path: "{{ ansible_env.HOME }}/.config/hammerspoon"
 
       - name: Start hammerspoon
         shell: |
