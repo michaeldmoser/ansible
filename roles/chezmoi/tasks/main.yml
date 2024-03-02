@@ -14,3 +14,19 @@
     - name: Set global shim
       shell: |
         {{ asdf_command }} global chezmoi latest
+
+    - name: Create config directory
+      file:
+        path: "{{ ansible_env.HOME }}/.config/chezmoi"
+        state: directory
+
+    - name: Create chezmoi configuration file
+      blockinfile:
+        path: "{{ ansible_env.HOME }}/.config/chezmoi/chezmoi.toml"
+        create: yes
+        marker: "# {mark} chezmoi ANSIBLE MANAGED BLOCK"
+        block: |
+          [data]
+          computerName = "{{ computer_name }}"
+          computerUseType = "{{ computer_use_type }}"
+
