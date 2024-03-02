@@ -1,0 +1,37 @@
+---
+# tasks file for alacritty
+
+- when: ansible_os_family == 'Darwin'
+  block: 
+    - name: Is alacritty already installed?
+      stat:
+        path: /Applications/Alacritty.app
+      register: alacritty
+      
+    - when: alacritty.stat.isdir is not defined
+      block:
+        - name: Download Alacritty
+          get_url:
+            url: https://github.com/alacritty/alacritty/releases/download/v0.13.1/Alacritty-v0.13.1.dmg
+            dest: /tmp/Alacritty.dmg
+        
+        - name: Mount disk images
+          shell: |
+            hdiutil attach /tmp/Alacritty.dmg -nobrowse -mountpoint /tmp/Alacritty
+
+        - name: Copy to Applications/
+          copy:
+            src: /tmp/Alacritty/Alacritty.app
+            dest: /Applications/Alacritty.app
+
+        - name: Umount mount disk image
+          shell: |
+            hdiutil detach /tmp/Alacritty
+
+        - name: Remove dmg file
+          file:
+            path: /tmp/Alacritty.dmg
+            state: absent
+
+
+

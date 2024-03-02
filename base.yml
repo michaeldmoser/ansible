@@ -35,3 +35,8 @@
         name: hammerspoon
       tags: ["hammerspoon"]
 
+    - name: alacritty
+      import_role:
+        name: alacritty
+      tags: ["alacritty"]
+
