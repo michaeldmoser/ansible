@@ -28,6 +28,7 @@ RUN apt-get update \
        git \
        ansible \
        neovim \
+       openssh-client \
     && apt-get install -y xauth libxcb-render0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xtest0-dev \
     && apt-get clean \
     && rm -Rf /var/lib/apt/lists/* \
