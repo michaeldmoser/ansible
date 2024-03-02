@@ -40,8 +40,8 @@
         name: alacritty
       tags: ["alacritty"]
 
-    - name: chezmoi
+    - name: dotfiles
       import_role:
-        name: chezmoi
-      tags: ["chezmoi"]
+        name: dotfiles
+      tags: ["dotfiles"]
 

@@ -1,0 +1,12 @@
+---
+# tasks file for dotfiles
+- name: Include SSH Key from Vault
+  include_vars:
+    file: ssh_key.vault
+
+- name: Install dotfiles
+  shell: |
+    source {{ ansible_env.HOME }}/.asdf/asdf.sh
+    eval $(ssh-agent -s)
+    echo "{{ private_ssh_key }}" | ssh-add -
+    {{ ansible_env.HOME }}/.asdf/shims/chezmoi init --apply {{ dotfiles_repo_url }}
