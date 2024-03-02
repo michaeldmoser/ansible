@@ -1,0 +1,3 @@
+---
+# vars file for chezmoi
+asdf_command: "{{ ansible_env.HOME }}/.asdf/bin/asdf"

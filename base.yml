@@ -40,3 +40,8 @@
         name: alacritty
       tags: ["alacritty"]
 
+    - name: chezmoi
+      import_role:
+        name: chezmoi
+      tags: ["chezmoi"]
+

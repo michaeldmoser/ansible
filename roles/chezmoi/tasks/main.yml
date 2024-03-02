@@ -1,0 +1,16 @@
+---
+# tasks file for chezmoi
+- name: Add asdf plugin if not already added
+  shell: |
+    {{ asdf_command }} plugin add chezmoi
+  register: asdf
+
+- when: asdf.rc == 0
+  block:
+    - name: Install lastest version
+      shell: |
+        {{ asdf_command }} install chezmoi latest
+
+    - name: Set global shim
+      shell: |
+        {{ asdf_command }} global chezmoi latest
