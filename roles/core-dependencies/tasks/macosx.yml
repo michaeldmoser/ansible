@@ -8,4 +8,3 @@
       - ripgrep # this should be move to the vim role as that's what is requiring it?
       - fzf
     state: present
-  become: yes
