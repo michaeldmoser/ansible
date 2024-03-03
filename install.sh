@@ -32,8 +32,9 @@ export PATH="~/.local/bin:$PATH"
 
 # Download the repository
 # Leave commented out while testing
-# git clone https://github.com/michaeldmoser/ansible.git
-# cd ansible
+# echo "from urllib.request import urlretrieve; urlretrieve('https://github.com/michaeldmoser/ansible/archive/refs/heads/main.tar.gz', 'ansible.tgz')" | python3 -
+# tar -xzf ansible.tgz
+# cd ansible-main
 cd /ansible
 
 # Install the ansible-galaxy roles
