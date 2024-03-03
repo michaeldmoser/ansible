@@ -46,6 +46,11 @@
         name: alacritty
       tags: ["alacritty"]
 
+    - name: zsh
+      import_role:
+        name: zsh
+      tags: ["zsh", "omz", "oh-my-zsh"]
+
     - name: dotfiles
       import_role:
         name: dotfiles
