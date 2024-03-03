@@ -4,6 +4,12 @@
   vars:
     dotfiles_repo_url:  git@github.com:michaeldmoser/dotfiles.git
 
+  # It seems that OSX instances in AWS dont' have a proper SSL Setup
+  # Use this only for testing. 
+  # module_defaults:
+  #   get_url:
+  #     validate_certs: false
+
   vars_prompt:
     - name: computer_name
       prompt: "What would you like to name this computer?"
