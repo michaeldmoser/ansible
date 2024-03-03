@@ -6,7 +6,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV pip_packages "ansible"
 
 RUN apt-get update && apt -y install software-properties-common
-RUN apt-add-repository ppa:ansible/ansible
 
 # Install dependencies.
 RUN apt-get update \
@@ -25,8 +24,6 @@ RUN apt-get update \
        python3-debian \
        software-properties-common \
        rsyslog systemd systemd-cron sudo iproute2 \
-       git \
-       ansible \
        neovim \
        openssh-client \
     && apt-get install -y xauth libxcb-render0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xtest0-dev \
