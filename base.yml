@@ -3,6 +3,7 @@
   gather_facts: yes
   vars:
     dotfiles_repo_url:  git@github.com:michaeldmoser/dotfiles.git
+    asdf_command: "{{ ansible_env.HOME }}/.asdf/bin/asdf"
 
   # It seems that OSX instances in AWS dont' have a proper SSL Setup
   # Use this only for testing. 
@@ -50,6 +51,11 @@
       import_role:
         name: zsh
       tags: ["zsh", "omz", "oh-my-zsh"]
+
+    - name: tmux
+      import_role:
+        name: tmux
+      tags: ["tmux"]
 
     - name: dotfiles
       import_role:

@@ -1,0 +1,3 @@
+---
+# defaults file for tmux
+asdf_command: "{{ ansible_env.HOME }}/.asdf/bin/asdf"
