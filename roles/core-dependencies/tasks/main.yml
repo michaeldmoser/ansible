@@ -3,11 +3,19 @@
     path: "{{ ansible_env.HOME }}/.local/bin"
     state: directory    
 
-- import_tasks: ./macosx.yml
-  when: ansible_os_family == "Darwin"
+- name: Install some basic utilties require by multiple tasks
+  package:
+    name: 
+      - gpg
+      - curl
+      - rlwrap
+      - xclip
+      - ripgrep # this should be move to the vim role as that's what is requiring it?
+      - fzf
+      - unzip
+    state: present
+  become: "{{ ansible_facts.distribution != 'MacOSX' }}"
 
-- import_tasks: ./debian.yml
-  when: ansible_os_family == "Debian" 
 
 - name: Install asdf 
   import_role:
