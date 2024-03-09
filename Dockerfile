@@ -22,6 +22,7 @@ RUN apt-get update \
        python3-yaml \
        python3-apt \
        python3-debian \
+       ansible \
        software-properties-common \
        rsyslog systemd systemd-cron sudo iproute2 \
        neovim \
@@ -44,4 +45,7 @@ RUN rm -f /lib/systemd/system/systemd*udev* \
 RUN echo "ubuntu ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER ubuntu
+
+COPY ./requirements.yml /tmp/requirements.yml
+RUN ansible-galaxy install -r /tmp/requirements.yml
 

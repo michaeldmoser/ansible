@@ -5,4 +5,4 @@ docker run -it \
     -e DISPLAY=host.docker.internal:0 \
     -v ./:/ansible \
     --cap-add SYS_ADMIN --cap-add DAC_READ_SEARCH \
-    ansible-testing bash -c 'cd ansible && ./install.sh'
+    ansible-testing bash -c 'cd ansible && ansible-playbook -i inventory --ask-vault-pass base.yml && bash'
