@@ -1,7 +1,8 @@
 ---
 # tasks file for tmux
-- name: 
-  shell: |
-    {{ asdf_command }} plugin add tmux
-    {{ asdf_command }} install tmux latest
-    {{ asdf_command }} global tmux latest
+- name: Install tmux
+  become: "{{ ansible_facts.distribution != 'MacOSX' }}"
+  package:
+    name: tmux
+    state: latest
+
