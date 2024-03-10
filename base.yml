@@ -57,6 +57,11 @@
         name: tmux
       tags: ["tmux"]
 
+    - name: neovim
+      import_role:
+        name: neovim
+      tags: ["neovim"]
+
     - name: dotfiles
       import_role:
         name: dotfiles

@@ -1,0 +1,19 @@
+---
+# tasks file for neovim
+- name: Has neovim already been installed via asdf?
+  shell: |
+    {{ asdf_command }} plugin list | grep -q neovim
+  register: asdf
+  ignore_errors: yes
+  changed_when: false
+
+- name: Add neovim plugin
+  when: asdf.rc != 0
+  shell: |
+    {{ asdf_command }} plugin add neovim
+
+- name: Install latest version
+  shell: |
+    {{ asdf_command }} install neovim latest
+    {{ asdf_command }} global neovim latest
+
