@@ -32,12 +32,6 @@
         name: zsh
       tags: ["zsh", "omz", "oh-my-zsh"]
 
-    - name: Install nix
-      shell: |
-        sh <(curl -L https://nixos.org/nix/install) --daemon
-        nix-env -iA nixpkgs.tmux
-      tags: ["nix"]
-
     - name: 1password
       import_role:
         name: 1password
