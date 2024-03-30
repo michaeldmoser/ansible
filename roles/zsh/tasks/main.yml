@@ -14,7 +14,13 @@
         name: "{{ ansible_user_id }}"
         shell: /bin/zsh
 
+- name: Check if Oh My ZSH is already installed
+  stat:
+    path: ~/.config/oh-my-zsh
+  register: ohmyzsh
+
 - name: Install Oh My Zsh 
   shell: |
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: ohmyzsh.stat.isdir is not defined
 
