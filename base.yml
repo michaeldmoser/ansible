@@ -27,6 +27,17 @@
         name: name-computer
       tags: ['name-computer']
 
+    - name: zsh
+      import_role:
+        name: zsh
+      tags: ["zsh", "omz", "oh-my-zsh"]
+
+    - name: Install nix
+      shell: |
+        sh <(curl -L https://nixos.org/nix/install) --daemon
+        nix-env -iA nixpkgs.tmux
+      tags: ["nix"]
+
     - name: 1password
       import_role:
         name: 1password
@@ -46,11 +57,6 @@
       import_role:
         name: alacritty
       tags: ["alacritty"]
-
-    - name: zsh
-      import_role:
-        name: zsh
-      tags: ["zsh", "omz", "oh-my-zsh"]
 
     - name: tmux
       import_role:

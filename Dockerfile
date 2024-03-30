@@ -1,4 +1,4 @@
-FROM ubuntu:23.04
+FROM ubuntu:jammy
 LABEL maintainer="Michael Moser"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -22,11 +22,13 @@ RUN apt-get update \
        python3-yaml \
        python3-apt \
        python3-debian \
-       ansible \
+       python3-venv \
        software-properties-common \
        rsyslog systemd systemd-cron sudo iproute2 \
        neovim \
        openssh-client \
+       git \
+       i3-wm \
     && apt-get install -y xauth libxcb-render0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xtest0-dev \
     && apt-get clean \
     && rm -Rf /var/lib/apt/lists/* \
@@ -43,9 +45,12 @@ RUN rm -f /lib/systemd/system/systemd*udev* \
   && rm -f /lib/systemd/system/getty.target
 
 RUN echo "ubuntu ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
+RUN useradd -ms /bin/bash ubuntu
 USER ubuntu
+RUN python3 -m pip install pipx
+RUN python3 -m pipx install --include-deps ansible
+RUN echo "export PATH=\$PATH:/home/ubuntu/.local/bin" >> /home/ubuntu/.bashrc
 
 COPY ./requirements.yml /tmp/requirements.yml
-RUN ansible-galaxy install -r /tmp/requirements.yml
+RUN /home/ubuntu/.local/bin/ansible-galaxy install -r /tmp/requirements.yml
 
