@@ -17,8 +17,3 @@
     {{ asdf_command }} install neovim latest
     {{ asdf_command }} global neovim latest
 
-- name: Install NvChad
-  git:
-    repo: https://github.com/NvChad/NvChad 
-    dest: "{{ ansible_env.HOME }}/.config/nvim"
-    depth: 1
